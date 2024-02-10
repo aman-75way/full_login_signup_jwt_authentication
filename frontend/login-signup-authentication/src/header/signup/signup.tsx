@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './signup.style.css';
 import axios from 'axios';
+import { useAuth } from '../../store/auth';
 
 export const Signup = () => {
   
@@ -8,6 +9,7 @@ export const Signup = () => {
   const [password , setPassword ] = useState('');
   const [confirmPassword , setConfirmPassword] = useState("");
 
+  const storeTokenInLocalStorage = useAuth();
 
   const handleSubmit = async(event : React.FormEvent)=>{
       event.preventDefault();
@@ -19,10 +21,19 @@ export const Signup = () => {
                 name,password,confirmPassword
               });
 
-              console.log(response);
-              setName("");
-              setPassword("");
-              setConfirmPassword("");
+              if(response.status === 201){
+                  const data = await response.data;   // which comes from the backend (index.js)
+                  const token = data.token;
+
+                  // we maintain below one line with the help of store in future......
+                  localStorage.setItem("token" , token);
+                  storeTokenInLocalStorage(token);
+
+                  setName("");
+                  setPassword("");
+                  setConfirmPassword("");
+              }
+
         }else{
           alert("Password is not matching");
         }
