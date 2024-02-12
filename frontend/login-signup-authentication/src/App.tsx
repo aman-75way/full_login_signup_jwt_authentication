@@ -1,16 +1,20 @@
 import Routes_ from './routes/Routes'
 import Navbar from './navbar/Navbar'
-import { AuthContext, AuthProvider } from './store/auth'
+import { useContext, useState } from 'react'
+import { UserContext, UserProvider } from './store/auth'
 
 
 function App() {
 
+  const [tokenValue , setTokenValue] = useState<string>('')
+
+  // const {user , setUser} = useContext(UserContext);
   return (
     <>
-       <AuthProvider>
+      <UserProvider>
             <Navbar />
             <Routes_ />
-       </AuthProvider>
+      </UserProvider>
     </>
   )
 }

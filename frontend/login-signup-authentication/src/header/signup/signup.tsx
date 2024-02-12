@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './signup.style.css';
 import axios from 'axios';
-import { useAuth } from '../../store/auth';
+// import { useAuth } from '../../store/auth';
 
 export const Signup = () => {
   
@@ -9,8 +9,8 @@ export const Signup = () => {
   const [password , setPassword ] = useState('');
   const [confirmPassword , setConfirmPassword] = useState("");
 
-  const storeTokenInLocalStorage = useAuth();
-
+  // const storeTokenInLocalStorage = useAuth();
+  
   const handleSubmit = async(event : React.FormEvent)=>{
       event.preventDefault();
 
@@ -22,16 +22,18 @@ export const Signup = () => {
               });
 
               if(response.status === 201){
+                  console.log("Response is : " , response);
                   const data = await response.data;   // which comes from the backend (index.js)
                   const token = data.token;
-
+                  console.log("Signup token is : " , token);
                   // we maintain below one line with the help of store in future......
                   localStorage.setItem("token" , token);
-                  storeTokenInLocalStorage(token);
+                  // storeTokenInLocalStorage(token);
 
                   setName("");
                   setPassword("");
                   setConfirmPassword("");
+                  console.log(response);
               }
 
         }else{

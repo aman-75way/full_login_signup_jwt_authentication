@@ -6,6 +6,7 @@ import About from '../header/About/About';
 import Login from '../header/login/login';
 import { Signup } from '../header/signup/signup';
 import { Profile } from '../header/profile/Profile';
+import { Logout } from '../header/logout/Logout';
 
 const Routes_: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const Routes_: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/logout" element={<Logout />} />
       </ReactRoutes> 
 
   );

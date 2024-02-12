@@ -1,8 +1,9 @@
 // src/components/Home.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import './Home.style.css'; // Import the CSS file for styling
 
 const Home: React.FC = () => {
+
   return (
     <div className="home-container">
       <div className="home-background">

@@ -1,0 +1,98 @@
+// import { connectDB } from './db.js';
+import User from '../models/UserSchema.js';
+import bodyParser from 'body-parser';
+
+
+/*  Home Page (GET) */
+
+    const GetHome = (req,res)=>{
+        res.send("Home");
+    };
+
+
+/* UserDetails (GET) */
+
+    const userDetails = async(req , res) => {
+        try {
+            const userData = req.user;
+            res.status(200).json({userData});
+        } catch (error) {
+            console.log(`Error from the user route , ${error}`);
+        }
+    };
+
+
+
+/*  Signup controller (POST) */
+
+    const userSignUp = async (req,res)=>{
+    
+    const {name , password , confirmPassword } = req.body;
+
+    // let userData = new User({
+    //     name,
+    //     hashPassword,
+    //     // confirmPassword
+    // });
+
+    
+    const existingUser = await User.findOne({name});
+    if(existingUser) res.send("User exists already");
+    else{
+            // const token = await userData.generateAuthToken();
+            // console.log("The token part is : " , token);
+
+            // res.cookie("jwt" , token , {
+            //     expires: new Date(Date.now() + 100000),
+            //     httpOnly:true
+            //     // secure : true    // (this is for https only - when we deploy our project)
+            // });
+
+            // const salt = 10;
+            // const hashPassword = await bcrypt.hash(password , salt);
+            // const hashConfirmPassword = await bcrypt.hash(confirmPassword , salt);
+
+            let userData = new User({
+                name,
+                password,
+                confirmPassword
+            });
+
+            // controller go on to schema.js and there is a pre function (middleware) , which encrypts the password and confirmPassword and modifies the original password and hashPassword.....
+
+            await userData.save().then(async ()=>{
+                // console.log(userData);
+
+                // by this below line , we are sending the token to the frontend user....with status code and message...
+                res.status(201).json({message: "User created Successfully", token: await userData.generateAuthToken() , userId : userData._id});
+            }).catch((err)=>{
+                console.log("Error : " , err);
+                res.status(500).send('Internal Server Error');
+            });
+    }
+    };
+ 
+ 
+
+/* Login controller (POST) */
+
+    const userLogin = async function(req,res){
+        
+        const {name , password} = req.body;
+        try{
+            const existingUser = await User.findOne({name , password});
+            console.log(existingUser);
+            if(existingUser){
+
+                res.status(200).json({message: 'login successful' , token : await existingUser.generateAuthToken() , userId: existingUser._id});
+            }else{
+                res.status(401).json({message : 'Invailid Credentials'});
+            }
+        }catch(err){
+            console.log("Error : " , err);
+            res.status(500).json({message: "Internal Server Error"});
+        }
+    };
+
+
+export  {GetHome, userDetails, userSignUp, userLogin};
