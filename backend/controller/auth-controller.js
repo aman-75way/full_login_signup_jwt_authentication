@@ -27,7 +27,7 @@ import bodyParser from 'body-parser';
 
     const userSignUp = async (req,res)=>{
     
-    const {name , password , confirmPassword } = req.body;
+    const {name , mobile , email , gender , password , confirmPassword } = req.body;
 
     // let userData = new User({
     //     name,
@@ -54,6 +54,9 @@ import bodyParser from 'body-parser';
 
             let userData = new User({
                 name,
+                mobile,
+                email,
+                gender,
                 password,
                 confirmPassword
             });

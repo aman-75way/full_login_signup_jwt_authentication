@@ -3,4 +3,14 @@
     justify-content: center;
     align-items: center;
     margin-top: 50px;
+    margin-left: 35vw;
+    max-width: 30vw;
+    min-height: 70vh;
+    background-color: #97BC62;
+    border: 2px solid rgb(57, 44, 240);
+    border-radius: 20%;
+}
+
+.formComponent{
+    margin-top: 20px;
 }

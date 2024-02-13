@@ -6,12 +6,17 @@ import Home from '../Home/Home';
 
 export const Logout = () => {
 
-  const {user , setUser , setUserData,  removeTokenFromLocalStorage} = useContext(UserContext);
+  const { setUser , setUserData } = useContext(UserContext);
 
 
   useEffect(()=>{
        setUser({token : ""});
-       setUserData({userDetails : ""});
+       setUserData({
+        userName : "",
+        userNumber : "",
+        userEmail : "",
+        userGender : ""
+       });
        localStorage.removeItem("token");
   } , [])
 

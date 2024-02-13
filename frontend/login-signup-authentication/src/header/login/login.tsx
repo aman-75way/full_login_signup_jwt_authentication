@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const [name, setName] = useState('');
   const [isLogin, setIsLogin] = useState(false);
   const [password, setPassword] = useState('');
-  const {user , setUser , userData , setUserData , storeTokenInLocalStorage , userAuthentication } = useContext(UserContext);
+  const { storeTokenInLocalStorage , userAuthentication } = useContext(UserContext);
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -27,12 +27,13 @@ const Login: React.FC = () => {
         const Usertoken = data.token;
         userAuthentication(Usertoken);
          storeTokenInLocalStorage(Usertoken);
-         setUserData({userDetails : "Hello"});
+        //  setUserData({userDetails : "Hello"});
 
          console.log('Successful login');
         //  console.log(response);
 
          setIsLogin(true);
+        //  alert("Login Successful");
       }
     } catch (error) {
       console.log('Error: ', error);
@@ -47,18 +48,19 @@ const Login: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
+            className='form-component'
             placeholder="Enter Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
             type="password"
+            className='form-component'
             placeholder="Enter Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-
-          <button type="submit">Login</button>
+          <button type="submit" className='form-component'>Login</button>
         </form>
       )}
     </div>

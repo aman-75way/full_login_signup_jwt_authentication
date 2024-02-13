@@ -1,23 +1,21 @@
 // src/components/About.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import './about.style.css'; // Import the CSS file for styling
+import { UserContext } from '../../store/auth';
 
 const About: React.FC = () => {
+
+  const {userData} = useContext(UserContext);
   return (
     <div className="about-container">
       <h2>About Us</h2>
+      <h3 className='name-container'> Hello , {userData.userName} </h3>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.
-        Proin ac interdum velit. Donec nec maximus ipsum. Morbi at mauris vel
-        tortor tincidunt fermentum. Fusce eget justo eu purus tincidunt tempor.
-        Sed nec volutpat ligula. Aenean ullamcorper tincidunt urna, vel dapibus
-        elit venenatis non.
+        Welcome to our website, <br></br>
+        This website is designed by <b>Mr. Aman Kumar Tiwari </b> , working on <b>75way technologies pvt. ltd.</b> as an <b>Intern</b>
+
       </p>
       <p>
-        Phasellus euismod arcu a felis lobortis, eu vestibulum justo posuere.
-        Integer mattis lectus nec arcu varius, nec blandit risus fermentum.
-        Vivamus ut malesuada sem. Fusce fermentum metus id neque volutpat, vel
-        consequat elit sollicitudin.
       </p>
     </div>
   );

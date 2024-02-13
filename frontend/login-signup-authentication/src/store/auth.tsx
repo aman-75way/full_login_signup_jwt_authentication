@@ -44,7 +44,10 @@ export type User = {
 };
 
 export type UserData = {
-  userDetails : string;
+  userName : string,
+  userNumber : string,
+  userEmail : string,
+  userGender : string
 }
 
 // const [userDetails , setUserDetails] = useState<string>("");
@@ -55,7 +58,6 @@ export interface UserContextInterface {
   setUserData: Dispatch<SetStateAction<UserData>>;
   storeTokenInLocalStorage: (serverToken: string) => void;
   removeTokenFromLocalStorage: () => void;
-  setUserDataValue: () => void;
   userAuthentication: (serverToken: string) => void;
 }
 
@@ -71,13 +73,15 @@ const defaultState = {
     token: ""
   },
   userData : {
-    userDetails : ""
+    userName : "",
+    userNumber : "",
+    userEmail : "",
+    userGender : ""
   },
   setUser: (user: User) => {},
   setUserData: (userData : UserData) => {},
   storeTokenInLocalStorage: (serverToken: string) => {},
   removeTokenFromLocalStorage: () => {},
-  setUserDataValue: () => {},
   userAuthentication: (serverToken: string) => {},
 } as UserContextInterface;
 
@@ -94,7 +98,10 @@ export function UserProvider({ children }: UserProviderProps) {
   });
 
   const [userData , setUserData] = useState<UserData>({
-    userDetails : "initial value ",
+    userName : "",
+    userNumber : "",
+    userEmail : "",
+    userGender : ""
   })
 
   const storeTokenInLocalStorage = (serverToken: string) => {
@@ -107,9 +114,6 @@ export function UserProvider({ children }: UserProviderProps) {
     return localStorage.removeItem("token");
   };
 
-  const setUserDataValue = ()=>{
-    setUserData({userDetails : "ye hai details"});
-  }
 
   const userAuthentication = async (serverToken : string)=> {
       try {
@@ -124,7 +128,12 @@ export function UserProvider({ children }: UserProviderProps) {
           const userDetails_ = await response.data;
 
           // console.log(userDetails_);
-          setUserData({userDetails : userDetails_.userData.name.toString()});
+          setUserData({
+            userName : userDetails_.userData.name.toString(),
+            userNumber : userDetails_.userData.mobile,
+            userEmail : userDetails_.userData.email,
+            userGender : userDetails_.userData.gender 
+          });
           // console.log("Name is : " , userDetails_.userData.name);
         }
         
@@ -136,7 +145,7 @@ export function UserProvider({ children }: UserProviderProps) {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, userData , setUserData , storeTokenInLocalStorage, removeTokenFromLocalStorage , userAuthentication , setUserDataValue}}
+      value={{ user, setUser, userData , setUserData , storeTokenInLocalStorage, removeTokenFromLocalStorage , userAuthentication }}
     >
       {children}
     </UserContext.Provider>

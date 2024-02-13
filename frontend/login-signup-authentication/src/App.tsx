@@ -2,7 +2,7 @@ import Routes_ from './routes/Routes'
 import Navbar from './navbar/Navbar'
 import { useContext, useState } from 'react'
 import { UserContext, UserProvider } from './store/auth'
-
+import './App.css';
 
 function App() {
 
