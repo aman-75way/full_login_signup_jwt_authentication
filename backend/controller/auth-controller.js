@@ -84,7 +84,7 @@ import bodyParser from 'body-parser';
         const {name , password} = req.body;
         try{
             const existingUser = await User.findOne({name , password});
-            console.log(existingUser);
+            // console.log(existingUser);
             if(existingUser){
 
                 res.status(200).json({message: 'login successful' , token : await existingUser.generateAuthToken() , userId: existingUser._id});
@@ -98,4 +98,29 @@ import bodyParser from 'body-parser';
     };
 
 
-export  {GetHome, userDetails, userSignUp, userLogin};
+
+/* Forget Password (POST) */
+
+   const forgetPassword = async function(req,res){
+        // console.log("Request body : " , req.body);
+        const {name , password , confirmPassword} = req.body;
+
+        const existingUser = await User.findOne({name});
+        
+        // console.log("Data from backend : " , existingUser);
+        if(existingUser){
+            // if(existingUser.password === confirmPassword){
+            //     res.status(422).json({error: 'New password must be different from the old password'});
+            // }
+            
+            existingUser.password = password;
+            await existingUser.save();
+            res.status(200).json({msg: "Password changed successfully"});
+            
+        }else{
+            res.status(404).json({msg: "User not found"})
+        }
+   }
+
+
+export  {GetHome, userDetails, userSignUp, userLogin , forgetPassword};

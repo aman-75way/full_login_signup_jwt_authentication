@@ -7,6 +7,7 @@ import Login from '../header/login/login';
 import { Signup } from '../header/signup/signup';
 import { Profile } from '../header/profile/Profile';
 import { Logout } from '../header/logout/Logout';
+import { Forget_Password } from '../header/forget-password/Forget_Password';
 
 const Routes_: React.FC = () => {
   return (
@@ -18,6 +19,8 @@ const Routes_: React.FC = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/forgetPassword" element={<Forget_Password />} />
+
       </ReactRoutes> 
 
   );

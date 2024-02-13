@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import './signup.style.css';
+import './signup.style.css'
 import axios from 'axios';
-// import { useAuth } from '../../store/auth';
+import Login from '../login/login';
 
 export const Signup = () => {
   
@@ -11,6 +11,7 @@ export const Signup = () => {
   const [gender , setGender ] = useState('');
   const [password , setPassword ] = useState('');
   const [confirmPassword , setConfirmPassword] = useState("");
+  const [register , setRegister] = useState(false);
 
   // const storeTokenInLocalStorage = useAuth();
   
@@ -39,6 +40,7 @@ export const Signup = () => {
                   setGender("");
                   setPassword("");
                   setConfirmPassword("");
+                  setRegister(true);
 
                   console.log(response);
               }
@@ -53,7 +55,16 @@ export const Signup = () => {
   }
 
   return (
-    <div className='main-container'>
+    <>
+    {
+      register 
+      ?
+      <>
+        <Login />
+      </>
+      :
+      <div className='main--container'>
+      <h2> Register Here </h2>
       <form onSubmit={handleSubmit} >
           
           <input type='text' className='formComponent' placeholder='Enter your name' onChange={(e) => setName(e.target.value)} value={name} />
@@ -75,5 +86,7 @@ export const Signup = () => {
           <button type='submit' className='formComponent' > Register </button>
       </form>  
     </div>
+    }
+    </>
   )
 }

@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import Jwt from 'jsonwebtoken';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
-import { GetHome, userDetails, userLogin, userSignUp } from './controller/auth-controller.js';
+import { GetHome, forgetPassword, userDetails, userLogin, userSignUp } from './controller/auth-controller.js';
 import { authMiddleware } from './middleware/auth-middleware.js';
 
 const app = express();
@@ -32,6 +32,9 @@ app.post('/signup' , userSignUp);
 
 
 app.post('/login' , userLogin);
+
+
+app.post('/forgetPassword' , forgetPassword);
 
 
 app.listen(PORT , (req,res)=>{

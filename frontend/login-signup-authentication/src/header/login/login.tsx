@@ -4,6 +4,7 @@ import axios from 'axios';
 import { SuccessPage } from '../../components/successPage/SuccessPage';
 import './login.style.css'; // Import the CSS file for styling
 import { UserContext } from '../../store/auth';
+import { Link } from 'react-router-dom';
 
 
 const Login: React.FC = () => {
@@ -45,6 +46,9 @@ const Login: React.FC = () => {
       {isLogin ? (
         <SuccessPage userName={name} />
       ) : (
+        <>
+        <br />
+        <h2> Login </h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -61,7 +65,9 @@ const Login: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit" className='form-component'>Login</button>
+          <Link className='forget' to='/forgetPassword'> Forget Password ? </Link>
         </form>
+        </>
       )}
     </div>
   );
