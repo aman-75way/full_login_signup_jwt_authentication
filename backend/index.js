@@ -7,6 +7,7 @@ import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import { GetHome, forgetPassword, userDetails, userLogin, userSignUp } from './controller/auth-controller.js';
 import { authMiddleware } from './middleware/auth-middleware.js';
+import { sendMail } from './controller/mail-controller.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,13 +23,18 @@ const PORT = 4000;
 
 connectDB();
 
+
+
+app.get('/sendmail' , sendMail)
+
+
 app.get('/' , GetHome);
 
 
 app.get('/userDetails' , authMiddleware , userDetails)
 
 
-app.post('/signup' , userSignUp);
+app.post('/signup' , sendMail, userSignUp);
 
 
 app.post('/login' , userLogin);

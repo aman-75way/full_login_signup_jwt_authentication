@@ -1,6 +1,7 @@
 // import { connectDB } from './db.js';
 import User from '../models/UserSchema.js';
 import bodyParser from 'body-parser';
+import { sendMail } from './mail-controller.js';
 
 
 /*  Home Page (GET) */
@@ -67,6 +68,7 @@ import bodyParser from 'body-parser';
                 // console.log(userData);
 
                 // by this below line , we are sending the token to the frontend user....with status code and message...
+                // await sendMail();
                 res.status(201).json({message: "User created Successfully", token: await userData.generateAuthToken() , userId : userData._id});
             }).catch((err)=>{
                 console.log("Error : " , err);
