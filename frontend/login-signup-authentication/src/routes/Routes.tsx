@@ -8,6 +8,7 @@ import { Signup } from '../header/signup/signup';
 import { Profile } from '../header/profile/Profile';
 import { Logout } from '../header/logout/Logout';
 import { Forget_Password } from '../header/forget-password/Forget_Password';
+import { FileUpload } from '../header/FileUpload/FileUpload';
 
 const Routes_: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const Routes_: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/fileUpload" element={<FileUpload />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/forgetPassword" element={<Forget_Password />} />
 
